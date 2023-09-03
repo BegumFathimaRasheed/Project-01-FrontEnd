@@ -38,10 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = "Weight is required.";
     }
 
-    // Sanitize payment method 
+    // Sanitize payment method (you can customize this based on your requirements)
     $paymentMethod = filter_input(INPUT_POST, 'payment_method', FILTER_SANITIZE_STRING);
 
-    // Validate email 
+    // Validate email (optional)
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     if ($email === false) {
         $errors[] = "Invalid Email Address.";
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "INSERT INTO bookings (sender_name, receiver_name, parcel_type, receiver_address, telephone_num, weight, payment_method)
+        $sql = "INSERT INTO package_services(sender_name, receiver_name, parcel_type, receiver_address, telephone_num, weight, payment_method)
                 VALUES ('$senderName', '$receiverName', '$parcelType', '$receiverAddress', '$telephoneNum', '$weight', '$paymentMethod')";
 
         if ($conn->query($sql) === TRUE) {
@@ -82,11 +82,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <head>
         <meta charset="UTF-8">
         <title>Package Booking</title>
-        <!-- Required meta tags -->
+        
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
+        
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="Admin_dashboard\bus registration.css">
@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php endforeach; ?>
             </ul>
         </div>
-    <?php endif; ?>
+    <?php endif; ?><--<!-- front end?? -->
     <div class="container-fluid bg-dark text-light py-3">
             <div class="d-flex justify-content-center">
                 <h1 class="display-6">Package Booking</h1>
@@ -180,7 +180,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="submit" class="btn btn-primary">Reserve</button>
     </div>
 </form>
-
 
 </body>
 </html>
